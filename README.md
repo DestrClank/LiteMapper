@@ -20,7 +20,7 @@ npm i
 
 2. Set a specified port in your environment variables
 
-```
+```py
 #.env
 PORT=<your port here>
 ```
