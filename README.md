@@ -2,6 +2,8 @@
 
 LiteMapper is a web-based, client-side application designed to algorithmically generate lighting data for Beat Saber maps. It's designed with simplicity and functionality in mind, providing an elegant front-end interface for ease of use.
 
+Original project by [@ItsOrius](https://github.com/ItsOrius), please go check out the original repo [here](https://github.com/ItsOrius/LiteMapper)
+
 
 ## Using Litemapper
 
