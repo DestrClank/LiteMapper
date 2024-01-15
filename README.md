@@ -8,7 +8,7 @@ LiteMapper is a web-based, client-side application designed to algorithmically g
 Our live instance is located at https://litemapper.vercel.app/ for you to use freely.
 
 
-To launch a developement instance:
+To launch a development instance:
 
 1. Clone the repo and install dependencies
 
