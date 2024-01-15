@@ -12,7 +12,7 @@ To launch a developement instance:
 
 1. Clone the repo and install dependencies
 
-```
+```sh
 git clone https://github.com/cloudwithax/LiteMapper.git
 cd LiteMapper/
 npm i
