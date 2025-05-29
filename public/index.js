@@ -1,7 +1,6 @@
 const uploadSection = document.getElementById('upload-section');
 const spinner = document.querySelector(".spinner");
 const loadingText = document.querySelector(".loading-text");
-const statusText = document.querySelector(".status-text");
 const loadingSubtext = document.querySelector(".loading-subtext");
 const sleepTimeDatFile = 2500; // Sleep time for each .dat file processing, in milliseconds
 const sleepTimeZipFile = 500; // Sleep time for the entire ZIP file processing, in milliseconds
@@ -167,9 +166,9 @@ async function init() {
     hideuploadSection();
     await sleep(300);
     showSpinner();
+    setLoadingSubtext("Processing your beatmap...");
     await sleep(500);
     showLoadingText();
-    setLoadingSubtext("Processing your beatmap...");
 
     if (isZip) {
         // Traitement ZIP
