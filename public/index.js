@@ -171,7 +171,7 @@ async function init() {
     showLoadingText();
 
     if (isZip) {
-        // Traitement ZIP
+        // Zip file processing
         const zip = await JSZip.loadAsync(file);
         const infoDatFile = Object.keys(zip.files).find(f => f.toLowerCase() === "info.dat");
         if (!infoDatFile) {
@@ -198,7 +198,7 @@ async function init() {
             return alert("Invalid Info.dat found in the ZIP! Please upload a valid Beat Saber beatmap ZIP file.");
         }
 
-        // Récupérer tous les fichiers .dat référencés dans info.dat
+        // Gather all beatmap files from the info.dat
         const beatmapFiles = [];
         for (const set of info._difficultyBeatmapSets) {
             for (const diff of set._difficultyBeatmaps) {
@@ -215,7 +215,7 @@ async function init() {
             return alert("Invalid Info.dat found in the ZIP! Please upload a valid Beat Saber beatmap ZIP file.");
         }
 
-        // Appliquer la lightmap à chaque beatmap
+        // Apply the processing to each beatmap file in the ZIP
         try {
             for (const filename of beatmapFiles) {
                 if (zip.file(filename)) {
@@ -229,7 +229,7 @@ async function init() {
                     const newContent = await calculate(content, sleepTimeZipFile);
                     zip.file(filename, newContent);
                 } else {
-                    // if the file is not found in the ZIP, log a warning and continue
+                    // if the file is not found in the ZIP, log an error and throw an exception
                     console.error(`File ${filename} not found in the ZIP!`);
                     throw new Error(`File ${filename} not found in the ZIP!`);
                 }
@@ -244,7 +244,7 @@ async function init() {
             return alert(`Failed to process the ZIP: ${e.message}`);
         }
 
-        // Générer le nouveau ZIP
+        // generate the new ZIP file
         setLoadingSubtext("Generating new ZIP file...");
         const newZipBlob = await zip.generateAsync({ type: "blob" });
         hideSpinner();
@@ -253,7 +253,7 @@ async function init() {
         showDownloadSectionZip(newZipBlob);
 
     } else {
-        // Traitement classique
+        // Classic .dat file processing
         const fileReader = new FileReader();
         fileReader.onload = async (event) => {
             try {
