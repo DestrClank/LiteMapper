@@ -6,6 +6,7 @@
     <title>Litemapper</title>
     <link rel="stylesheet" href="style.css">
     <script src="index.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="shortcut icon" href="icon.png" type="image/png">
 </head>
 <body>
@@ -15,9 +16,9 @@
         <div class="spinner" style="display: none;"></div>
         <div id="upload-section" class="upload-section">
             <p id="upload-cta">Load a beatmap to get started</p>
-            <input type="file" id="beatmap-input" accept=".dat" hidden/>
-            <input class="upload-button" id="upload-btn" type="button" value="Load Beatmap" />
-            
+            <input type="file" id="beatmap-input" accept=".zip,.dat" hidden />
+            <input class="upload-button" id="upload-btn" type="button" value="Load Beatmap (.zip, .dat)" />
+
         </div>
         <div id="download-section" class="download-section">
             <p id="download-cta">Your beatmap is ready!</p>
@@ -25,16 +26,18 @@
             <button class="download-button" id="download-btn">Download Beatmap</button>
             <button class="reset-button" id="reset-btn">Do Another One</button>
         </div>
-        
-        <div class="status"><p id="loading-text" class="loading-text">Loading the flux capactiors...</p></div>
-        
+
+        <div class="status">
+            <p id="loading-subtext" class="loading-subtext"></p>
+            <p id="loading-text" class="loading-text">Loading the flux capactiors...</p>
+        </div>
+
         <div class="footer">
-            <p>Litemapper. Created by <a href="https://github.com/itsorius">Orius</a>, reimagined by <a href="http://clxud.dev">Clxud</a> </div>
-        </div> 
-        
+            <p>Litemapper. Created by <a href="https://github.com/itsorius">Orius</a>, reimagined by <a href="http://clxud.dev">Clxud</a>
+        </div>
     </div>
 
-       
-    
+    </div>
+
 </body>
 </html>
