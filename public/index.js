@@ -175,10 +175,28 @@ async function init() {
         const zip = await JSZip.loadAsync(file);
         const infoDatFile = Object.keys(zip.files).find(f => f.toLowerCase() === "info.dat");
         if (!infoDatFile) {
+            hideSpinner();
+            hideLoadingText();
+            hideLoadingSubtext();
+            showuploadSection();
+            fileInput.value = "";
+            console.error("The ZIP file does not contain an info.dat file.");
             return alert("The ZIP file does not contain an info.dat file! Please upload a valid Beat Saber beatmap ZIP file.");
         }
         const infoDatContent = await zip.file(infoDatFile).async("string");
-        const info = JSON.parse(infoDatContent);
+
+        let info;
+        try {
+            info = JSON.parse(infoDatContent);
+        } catch (e) {
+            hideSpinner();
+            hideLoadingText();
+            hideLoadingSubtext();
+            showuploadSection();
+            console.error("Failed to parse info.dat:", e);
+            fileInput.value = ""
+            return alert("Invalid Info.dat found in the ZIP! Please upload a valid Beat Saber beatmap ZIP file.");
+        }
 
         // Récupérer tous les fichiers .dat référencés dans info.dat
         const beatmapFiles = [];
@@ -188,13 +206,32 @@ async function init() {
             }
         }
 
+        if (beatmapFiles.length < 1) {
+            hideSpinner();
+            hideLoadingText();
+            hideLoadingSubtext();
+            showuploadSection();
+            fileInput.value = ""
+            return alert("Invalid Info.dat found in the ZIP! Please upload a valid Beat Saber beatmap ZIP file.");
+        }
+
         // Appliquer la lightmap à chaque beatmap
         for (const filename of beatmapFiles) {
             if (zip.file(filename)) {
-                const content = await zip.file(filename).async("string");
-                setLoadingSubtext(`Processing beatmap ${filename}... (${Math.round((beatmapFiles.indexOf(filename) + 1) / beatmapFiles.length * 100)}%)`);
-                const newContent = await calculate(content, sleepTimeZipFile);
-                zip.file(filename, newContent);
+                try {
+                    const content = await zip.file(filename).async("string");
+                    setLoadingSubtext(`Processing beatmap ${filename}... (${Math.round((beatmapFiles.indexOf(filename) + 1) / beatmapFiles.length * 100)}%)`);
+                    const newContent = await calculate(content, sleepTimeZipFile);
+                    zip.file(filename, newContent);
+                } catch (e) {
+                    hideSpinner();
+                    hideLoadingText();
+                    hideLoadingSubtext();
+                    showuploadSection();
+                    fileInput.value = "";
+                    console.error(`Failed to process ${filename}:`, e);
+                    return alert(`Failed to process ${filename}: ${e.message}`);
+                }
             }
         }
 
