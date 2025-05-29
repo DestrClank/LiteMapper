@@ -175,7 +175,7 @@ async function init() {
         const zip = await JSZip.loadAsync(file);
         const infoDatFile = Object.keys(zip.files).find(f => f.toLowerCase() === "info.dat");
         if (!infoDatFile) {
-            throw new Error("info.dat introuvable dans le ZIP !");
+            return alert("The ZIP file does not contain an info.dat file! Please upload a valid Beat Saber beatmap ZIP file.");
         }
         const infoDatContent = await zip.file(infoDatFile).async("string");
         const info = JSON.parse(infoDatContent);
