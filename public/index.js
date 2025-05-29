@@ -167,6 +167,7 @@ async function init() {
     await sleep(300);
     showSpinner();
     setLoadingSubtext("Processing your beatmap...");
+    showLoadingText();
     await sleep(500);
     showLoadingText();
 
