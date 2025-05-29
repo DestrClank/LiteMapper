@@ -94,6 +94,7 @@ function showDownloadSection(beatmap) {
 function showDownloadSectionZip(zipBlob) {
     const downloadSection = document.getElementById("download-section");
     downloadSection.style.display = "initial";
+
     setTimeout(() => {
         downloadSection.style.opacity = 1;
     }, 100);
@@ -101,10 +102,9 @@ function showDownloadSectionZip(zipBlob) {
     const downloadButton = document.getElementById("download-btn");
     const randomString = Math.random().toString(36).substring(2, 10);
 
-    // Supprimer les anciens écouteurs
     downloadButton.replaceWith(downloadButton.cloneNode(true));
-    const newDownloadButton = document.getElementById("download-btn");
 
+    const newDownloadButton = document.getElementById("download-btn");
     newDownloadButton.addEventListener("click", () => {
         const url = URL.createObjectURL(zipBlob);
         const link = document.createElement("a");
@@ -169,7 +169,6 @@ async function init() {
     setLoadingSubtext("Processing your beatmap...");
     showLoadingText();
     await sleep(500);
-    showLoadingText();
 
     if (isZip) {
         // Zip file processing
